@@ -1,0 +1,22 @@
+.NavigationBar1{
+    border:0px;
+    margin:0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1px 50px;
+    background-color: #f0efef3d;
+}
+
+.logo{
+    height: 50px
+}
+
+.userIcon{
+    height: 50px;
+    cursor: pointer;
+}
+
+.NavigationClassName{
+    list-style: none;
+}

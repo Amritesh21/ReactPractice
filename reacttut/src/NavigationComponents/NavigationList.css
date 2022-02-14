@@ -1,0 +1,14 @@
+.navItems{
+    display: inline-block;
+    padding: 1px 15px
+}
+
+.navItems a{
+    text-decoration: none;
+    color: blue;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.navItems a:hover{
+    color: red;
+}
