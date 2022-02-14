@@ -1,21 +1,23 @@
 import { NavBarComp } from "./NavBarListItemsCom"
 export const NavBar = () => {
     const myStyle = {
-        margin: "0px",
-        border: "0px",
         color: "Red",
         backgroundColor : "Black", 
-        height : "50px"
+        display: "flex",
+        justifyContent: "space-between", 
+        alignItems: "center",
+        padding: "10px 10%"
     }
     const listStyleType = {
-        listStyle: "none",
-        float: "left"
+        listStyle: "none"
     } 
     return(
         <div style={myStyle} className="NavigationBar">
+            <span>Logo</span>
             <ul className="NavigationList" style={listStyleType}>
                 <NavBarComp/>
             </ul>
+            <span>User</span>
         </div>
     )
 }
