@@ -11,6 +11,8 @@ import Link from './ComponentsFolder/TestingTut/Link';
 import { NavigationBar1 } from './NavigationComponents/NavigationBar1';
 import { UserDetailsDiv } from './NavigationComponents/UserDetailsDiv';
 import { BodyComponent } from './BodyContent/BodyComponent';
+import { Route, Routes } from 'react-router-dom';
+import { HomeComponent } from './ComponentsFolder/HomeComponent';
 function App() {
   const [isVoterV,setIsVoter] = useState("");
 
@@ -41,9 +43,12 @@ function App() {
       <SelectFormpract/>
       <NavBar/>*/}
       <NavigationBar1 userDetailsDiv={setUserDetails}/>
+      <Routes>
+        <Route path="/" element={<HomeComponent/>}></Route>
+        <Route path="/form" element={<FormCreation/>}></Route>
+      </Routes>
       <div>
       {displayUserDetailsMethod()}
-      <BodyComponent/>
       </div>
       {/*<FormsCss/>
       <PropsTut name="Amrit" age="18" data1={setIsVoter}/>
