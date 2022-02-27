@@ -1,4 +1,11 @@
-import React, {useState} from 'react';
+import React, {Suspense, useState} from 'react';
+
+//const FormsCacheTest = React.lazy(() => import('./FormsCacheTest'));
+//const FormsCacheTest = React.lazy(() => import('./FormsCacheTest')); // For default component
+
+const FormsCacheTest = React.lazy(() => import('./FormsCacheTest').then(module => ({ default : module.FormsCacheTest }))) // for non default component
+const FormsCacheTest2 = React.lazy(() => import('./FormsCacheTest').then(module => ({ default : module.FormsCacheTest2 }))) // for non default component
+
 
 const FormCreation = () => {
 
@@ -31,6 +38,11 @@ const FormCreation = () => {
                 onChange = {(e) => setAge(e.target.value)}/>
                 <button type = "submit" onClick = {(e) => formSubmit(e)}>Submit</button> 
             </form>
+            <Suspense fallback={<h1>Loading</h1>}>
+                <FormsCacheTest/>
+                <FormsCacheTest2/>
+                <FormsCacheTest/>
+            </Suspense>
         </div>
     )
 

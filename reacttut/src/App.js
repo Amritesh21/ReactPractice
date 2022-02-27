@@ -1,16 +1,16 @@
-import TestRun from './ComponentsFolder/testrun';
+/*import TestRun from './ComponentsFolder/testrun';
 import MapPractice from './ComponentsFolder/mapPractice';
-import UseStComp from './ComponentsFolder/usestateComp';
+import UseStComp from './ComponentsFolder/usestateComp';*/
 import FormCreation from './ComponentsFolder/FormCreate';
-import SelectFormpract from './ComponentsFolder/SelectFormpract';
-import {PropsTut} from './ComponentsFolder/Propstut';
+/*import SelectFormpract from './ComponentsFolder/SelectFormpract';
+import {PropsTut} from './ComponentsFolder/Propstut';*/
 import { useEffect, useState } from 'react';
-import {FormsCss} from './ComponentsFolder/FormsAndCssReact'
+/*import {FormsCss} from './ComponentsFolder/FormsAndCssReact'
 import {NavBar} from './ComponentsFolder/NavigationBar'
-import Link from './ComponentsFolder/TestingTut/Link';
+import Link from './ComponentsFolder/TestingTut/Link';*/
 import { NavigationBar1 } from './NavigationComponents/NavigationBar1';
 import { UserDetailsDiv } from './NavigationComponents/UserDetailsDiv';
-import { BodyComponent } from './BodyContent/BodyComponent';
+//import { BodyComponent } from './BodyContent/BodyComponent';
 import { Route, Routes } from 'react-router-dom';
 import { HomeComponent } from './ComponentsFolder/HomeComponent';
 function App() {
