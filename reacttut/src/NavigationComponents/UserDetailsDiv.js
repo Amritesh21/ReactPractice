@@ -2,7 +2,7 @@ export const UserDetailsDiv = (props) => {
     const userDetailStyle = {
         height: "300px",
         width: "20%",
-        position:"fixed",
+        position:"absolute",
          backgroundColor: "red",
          left:"80%"
 
