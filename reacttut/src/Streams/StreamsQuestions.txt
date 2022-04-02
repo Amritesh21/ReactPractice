@@ -1,0 +1,87 @@
+import java.util.*;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+public class StreamsAssignment {
+
+    public static void main(String[] args) {
+
+        List<Person1> people = Arrays.asList(
+                new Person1(20, "John", "USA"),
+                new Person1(35, "Sam", "Italy"),
+                new Person1(15, "Jamie", "England"),
+                new Person1(30, "Robert", "Italy"),
+                new Person1(20, "James", "Ireland"),
+                new Person1(25, "Peter", "USA"),
+                new Person1(5, "Jessica", "Norway"),
+                new Person1(40, "Roger", "Netherlands"),
+                new Person1(50, "Jim", "USA")
+        );
+/*
+        Q1. Print the avg age of all the people
+        Q2. Create a list of all the people who are either greater than 20 or contain any vowel in their name (uppercase or lowercase)
+        Q3. Create a list of people, sorted in ascending order on the basis of age, if age is the same then sort in descending order of name
+        Q4. Create a map from this people list where the key is country name and value is count which means a map will tell how many people live in a particular country
+        Q5. Create a map which stores avg age of people per country (key should be country and value should be average age i.e, double)
+        Q6. Print the oldest person in every country
+        Q7. Print the country with most people
+        Q8. Create a list of 20 random integers in the range 0 - 1000 using Java 8 streams
+*/
+        // Q1
+        // with reduction
+        int sum = people.stream().map(e -> e.getAge()).reduce(0,(temp,element) -> (temp+element));
+        int count = people.stream().map(e -> e.getAge()).reduce(0,(ct,element) -> ++ct);
+        System.out.println(sum/count);
+        // with average operation
+        System.out.println(people.stream().mapToDouble(Person1::getAge).average().getAsDouble());
+
+        // Q2
+        System.out.println(people.stream().filter( e -> e.getAge() > 20 )
+                        .filter( e -> e.getName().toLowerCase().contains("a") || e.getName().contains("e")
+                                || e.getName().contains("i") || e.getName().contains("o")
+                        || e.getName().contains("u"))
+                .collect(Collectors.toList()));
+
+        // Q3
+        // ascending order age is equal :- [Jessica, Jamie, James, John, Peter, Robert, Sam, Roger, Jim]
+        // descending order when age is equal :- [Jessica, Jamie, John, James, Peter, Robert, Sam, Roger, Jim]
+        System.out.println(people.stream().sorted((Person1 a,Person1 b) -> {
+            if(a.getAge() == b.getAge()){
+                return b.getName().compareToIgnoreCase(a.getName());
+            }
+            return a.getAge() - b.getAge();
+        }).collect(Collectors.toList()));
+
+        // Q4
+        System.out.println(people.stream()
+                .collect(Collectors
+                        .groupingBy(Person1::getCountry, Collectors.counting())));
+
+        // Q5
+        System.out.println(
+                people.stream().collect(Collectors.groupingBy(Person1::getCountry,
+                        Collectors.averagingDouble(Person1::getAge)))
+        );
+
+        // Q6
+        Map<String, Optional<Person1>> map  =  people.stream().collect(Collectors.groupingBy(Person1::getCountry, Collectors.maxBy((Person1 p1, Person1 p2) -> Math.max(p1.getAge(),p2.getAge()))));
+
+        Map<String,Person1> map2 = people.stream().collect(Collectors.toMap(Person1::getCountry, Function.identity(),
+                BinaryOperator.maxBy(Comparator.comparing(Person1::getAge))));
+        System.out.println(map2);
+
+        // Q7
+        Map<String, Long> map1 = people.stream().
+                collect(Collectors.groupingBy(Person1::getCountry,Collectors.counting()));
+        System.out.println(Collections.max(map1.values()));
+
+        // Q8
+        Random random = new Random();
+        System.out.println(
+                random.ints(20, 0,1000).boxed().collect(Collectors.toList())
+        );
+    }
+
+
+}
