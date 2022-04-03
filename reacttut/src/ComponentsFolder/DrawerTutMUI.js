@@ -5,7 +5,7 @@ import { MyProfile } from "./MyProfile"
 import './DashBoard.css'
 import SendIcon from '@mui/icons-material/Send';
 import { AppBar, Box, Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
 
@@ -34,29 +34,35 @@ const useStyles = makeStyles({
     }
 })
 
-/*
-    [`& .MuiDrawer-paper`]: { width: '350px', boxSizing: 'border-box' },
-    [`& .MuiPaper-root`]: {position: 'relative', padding: '20px'}
-
-    these are inline css so it not affects any other drawer
-    suppose if we insert a new drawer despite we have applied css props to drawer by class name it doesnot affect
-    it as it is applied using inline css
-*/
-
 export const DashBoard = () => {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const classes = useStyles();
+    const [displayRel, setDisplayRel] = useState('none');
+    const[displayWidth, setDisplayWidth] = useState('350px');
+
+    useEffect(() => {
+        if(open === false){
+            setDisplayWidth('0px');
+        }else{
+            setDisplayWidth('350px');
+        }
+    },[open])
+
     return(
         <div className="DashBoardContainer">
             <div style={{width: '100%', display:'flex'}}>
                 {/*<AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}><Button>Clocked</Button><Button>Click</Button><Button>Click2</Button></AppBar>*/}
-                <Drawer variant="permanent"
+                <Button onClick={() => setOpen(true)} sx={{display: 'auto'}}>Open</Button>
+                <Drawer variant="persistent"
+                    open= {open}
                     sx={{
-                        position: 'relative',
-                        width: '350px',
+                        position: 'temporary',
+                        width: displayWidth,
                         flexShrink: 0,
-                        [`& .MuiDrawer-paper`]: { width: '350px', boxSizing: 'border-box' },
-                        [`& .MuiPaper-root`]: {position: 'relative', padding: '20px'}
+                        zindex: (theme) => theme.zIndex.drawer,
+                        [`& .MuiDrawer-paper`]: { width: '350px', boxSizing: 'border-box', zIndex: '1'},
+                        [`& .MuiPaper-root`]: {position: 'relative', padding: '20px'},
+                        [`& .MuiDrawer-root`]: {position: 'relative'},
                     }}
                 >   
                     <Box sx={{ overflow: 'auto' }}>
@@ -70,12 +76,23 @@ export const DashBoard = () => {
                                 </ListItem>
                             ))}
                         </List>
+                        <Button onClick={() => setOpen(preval => !preval)}>Open</Button>
                     </Box>
                 </Drawer>
-                <Button variant="contained" className={classes.DashBoardAppointmentButton} startIcon={<BookOnlineIcon/>}>My Appointments</Button>
-                <Button variant="contained" className={classes.DashboardProfileButton} startIcon={<AssignmentIndIcon/>}>My Profile</Button>
+                <Link to='/dashboard/MyAppointments' style={{textDecoration:'none'}}><Button variant="contained" className={classes.DashBoardAppointmentButton} startIcon={<BookOnlineIcon/>}>My Appointments</Button></Link>
+                <Link to='/dashboard/MyProfile' style={{textDecoration:'none'}}><Button variant="contained" className={classes.DashboardProfileButton} startIcon={<AssignmentIndIcon/>}>My Profile</Button></Link>
                 
             </div>
         </div>
     )
 }
+
+
+/*
+    [`& .MuiDrawer-paper`]: { width: '350px', boxSizing: 'border-box' },
+    [`& .MuiPaper-root`]: {position: 'relative', padding: '20px'}
+
+    these are inline css so it not affects any other drawer
+    suppose if we insert a new drawer despite we have applied css props to drawer by class name it doesnot affect
+    it as it is applied using inline css
+*/
